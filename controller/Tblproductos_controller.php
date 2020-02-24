@@ -27,7 +27,21 @@ class Tblproductos_controller{
         $this->menuProductos();
     }
 
+    public function modificarProducto(){
+        $id = $_REQUEST['id'];
+        $consultaCategorias = $this->model_categorias->consultarCategorias();
+        $consultaProductos = $this->model_productos->consultarProductoPorId($id);
+        require_once 'view/tblproducto_modificar.php';
+    }
 
+    public function guardarCambiosProducto(){
+        $dato['id'] = $_POST["txtid"];
+        $dato['categoria'] = $_POST["selcategorias"];
+        $dato['nombre'] = $_POST["txtnombre"];
+        $dato['precio'] = $_POST["txtprecio"];
+        $this->model_productos->actualizarProducto($dato);
+        $this->menuProductos();
+    }
 
 }
 

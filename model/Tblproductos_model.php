@@ -25,6 +25,21 @@ class Tblproductos_model{
         return $this->tblproductos;
     }
 
+    public function consultarProductoPorId($id){
+        $consulta = $this->bd->query("SELECT * FROM tblproductos WHERE id = " . $id);
+        $fila = $consulta->fetch_assoc();
+        $this->tblproductos[] = $fila;
+        return $this->tblproductos;
+    }
+
+    public function actualizarProducto($dato){
+        $idproducto = $dato['id'];
+        $idcategoria = $dato['categoria'];
+        $nombre = $dato['nombre'];
+        $precio = $dato['precio'];
+        $consulta = "UPDATE tblproductos SET idcategoria=$idcategoria, nombre='$nombre', precio=$precio  WHERE id = $idproducto";
+        mysqli_query($this->bd, $consulta) or die ("Error al actualizar los cambios del producto.");
+    }
 
 }
 
